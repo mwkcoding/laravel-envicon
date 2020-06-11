@@ -4,32 +4,48 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Default Favicon
+    | Favicons storage path
     |--------------------------------------------------------------------------
     |
-    | This is the default favicon that will be returned when the runtime
-    | environment does not have a corresponding favicon associated to it. The
-    | given path must be relative to the public/ folder.
+    | This settings holds the path to the folder in which the favicons will be
+    | looked for by the package. This path must be specified relatively to the
+    | public/ folder and must be web accessible.
     |
     */
-    'default_favicon' => 'favicons/production.svg',
+    'storage' => 'favicons/',
 
     /*
     |--------------------------------------------------------------------------
-    | Environments
+    | Default Favicon
     |--------------------------------------------------------------------------
     |
-    | For each of your environments, define the favicon to be used by following
-    | the following example. The given paths must be relative to the public/
-    | folder.
-    |
-    | Feel free to add or remove environments as needed.
+    | The default favicon will be returned when the current environment doesn't
+    | match any of the configurations. Either specify the favicon's path
+    | relative to the favicon's storage path.
     |
     */
-    'environments' => [
-        'local'      => 'favicons/local.svg',
-        'staging'    => 'favicons/staging.svg',
-        'production' => 'favicons/production.svg'
+
+    'default' => 'production.svg',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Favicon matchers
+    |--------------------------------------------------------------------------
+    |
+    | This section allows you to declare favicons with a set of conditions for
+    | each of them that if met, will return that favicon's path. The following
+    | conditions are valid: env, hostname.
+    |
+    */
+
+    'matchers' => [
+
+        'production.svg' => [
+            'env' => 'local',
+            'host' => 'hedger.ch',
+            'route' => '/'
+        ]
+
     ]
 
 ];
