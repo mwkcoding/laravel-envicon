@@ -43,6 +43,11 @@ return [
         'production.svg' => [
             'env' => 'local',
             'host' => 'hedger.ch',
+        ],
+
+        'production2.svg' => [
+            'env' => 'local',
+            'host' => 'envicon.test',
             'route' => '/'
         ]
 

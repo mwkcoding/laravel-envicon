@@ -3,6 +3,7 @@
 namespace Hedger\Envicon;
 
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Str;
 
 class Envicon
 {
@@ -19,7 +20,27 @@ class Envicon
      */
     public function url()
     {
-        return $this->for(App::environment());
+        $results = [];
+
+        foreach ($this->config['matchers'] as $favicon => $matchers) {
+            foreach ($matchers as $matcher => $value) {
+                $matcherClass = "\\Hedger\\Envicon\\Matchers\\" . ucfirst(Str::camel($matcher));
+                if (class_exists($matcherClass)) {
+                    echo $matcherClass . '<br>';
+                    $instance = new $matcherClass;
+                    if ($instance->match($value)) {
+                        echo 'matches';
+                        if (isset($results[$favicon])) {
+                            $results[$favicon] = $results[$favicon] + 1;
+                        } else {
+                            $results[$favicon] = 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        dd($results);
     }
 
     /**
